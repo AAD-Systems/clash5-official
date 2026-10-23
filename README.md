@@ -9,28 +9,22 @@
   [![Discord](https://img.shields.io/badge/Discord-Entrar_na_Arena-5865F2?style=for-the-badge&logo=discord)](https://discord.gg/RfFgpaTk9E)
 </div>
 
-## 🎮 Sobre o Jogo
-**CLASH 5** é um jogo de tiro tático em terceira pessoa (TPS) focado em partidas rápidas de 5v5. Escolha seu Operador, libere o poder da **Ressonância** e domine a arena. Mas lembre-se: **toda magia cobra um preço brutal.**
+<br>
 
-Este repositório hospeda a **Landing Page oficial** do jogo, servindo como central de download e integração com a comunidade.
+> 🔗 **Acesse a Landing Page Oficial:** [aad-systems.github.io/clash5-official](https://aad-systems.github.io/clash5-official/)
 
-## ⚙️ Funcionalidades do Jogo
-- **Combate Tático Mobile:** Controles fluidos com Joystick e Auto-Shoot.
-- **Sistema de Ressonância:** Habilidades devastadoras com penalidades únicas (Ex: O Espectro perde a mira ao usar o Domo).
-- **Multiplayer 5v5:** Partidas em tempo real rodando a 60 FPS.
-- **Integração com Discord:** Matchmaking automatizado e estatísticas em tempo real via bot oficial.
+## 🎮 O Jogo
+**CLASH 5** é um Hero Shooter TPS 5v5 focado em partidas rápidas para dispositivos móveis. Domine a **Ressonância** para destruir a arena, mas lembre-se: *toda magia cobra um preço brutal*.
 
-## 🤖 O Bot Oficial (C5 Core)
-Nossa comunidade é integrada ao jogo através do Discord:
-- `/lfg`: Cria uma sala de voz e procura time para o modo escolhido.
-- `/stats`: Puxa o K/D e Rank do jogador direto do nosso Banco de Dados.
-- `/claim-key`: Distribui chaves de acesso exclusivas para o Alpha/Beta.
+## ⚙️ Destaques
+- 📱 **Mobile-First:** Controles fluidos (Joystick + Auto-Shoot) rodando a 60 FPS.
+- ⚖️ **O Preço do Poder:** Habilidades devastadoras com penalidades táticas únicas.
+- 🤖 **Comunidade Integrada:** Matchmaking e Stats via bot oficial no Discord (`/lfg`, `/stats`).
 
-## 🛡️ Sobre a ASX3 Studios
-A **ASX3 Studios** é um estúdio independente focado no desenvolvimento de experiências competitivas de alta qualidade para dispositivos móveis.
-
-## ⚠️ Propriedade Intelectual
-**Aviso de Direitos Autorais:** Todo o conteúdo deste repositório (incluindo imagens, logos, códigos da landing page e design) é de propriedade exclusiva da ASX3 Studios. O jogo CLASH 5 é um software proprietário (Closed Source). É proibida a cópia, distribuição ou modificação sem autorização prévia.
+## 🛡️ ASX3 Studios
+Estúdio independente focado em experiências competitivas de alta qualidade.
 
 ---
+**⚠️ Propriedade Intelectual:** O jogo CLASH 5 é um software proprietário (*Closed Source*). Todo o conteúdo deste repositório (códigos, imagens, logos e design) é de propriedade exclusiva da ASX3 Studios. Proibida a cópia ou distribuição sem autorização.
+
 *© 2024 ASX3 Studios. Designed for Glory.*
