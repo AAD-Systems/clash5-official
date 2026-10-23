@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suporte | CLASH 5</title>
+    
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#09090B',
+                        panel: '#121215',
+                        line: '#27272A',
+                        text: '#F4F4F5',
+                        muted: '#A1A1AA',
+                        aether: '#2DD4BF',
+                        blood: '#E11D48',
+                        discord: '#5865F2'
+                    },
+                    fontFamily: {
+                        display: ['Bebas Neue', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Fundos */
+        .noise-bg {
+            position: fixed; inset: 0; z-index: -1; pointer-events: none;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
+        }
+
+        .tactical-grid {
+            position: fixed; inset: 0; z-index: -2; pointer-events: none;
+            background-size: 60px 60px;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at top center, black 20%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at top center, black 20%, transparent 80%);
+        }
+
+        /* Painéis e Inputs */
+        .tactical-panel {
+            background-color: #121215;
+            border: 1px solid #27272A;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+
+        .form-input {
+            background-color: #09090B;
+            border: 1px solid #27272A;
+            color: #F4F4F5;
+            transition: all 0.2s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #2DD4BF;
+            box-shadow: 0 0 0 1px #2DD4BF;
+        }
+
+        /* Upload Area (Drag & Drop) */
+        .upload-area {
+            border: 2px dashed #27272A;
+            background-color: #09090B;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .upload-area:hover, .upload-area.dragover {
+            border-color: #2DD4BF;
+            background-color: rgba(45, 212, 191, 0.05);
+        }
+
+        /* Botão Submit */
+        .btn-primary {
+            background-color: #2DD4BF;
+            color: #09090B;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #5EEAD4;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(45, 212, 191, 0.2);
+        }
+        .btn-primary:disabled {
+            background-color: #27272A;
+            color: #A1A1AA;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* FAQ */
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .faq-item.active .faq-content { max-height: 200px; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
+        .faq-icon { transition: transform 0.3s ease; }
+
+        /* Anti-Bot */
+        .honeypot-field { display: none !important; }
+
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="font-sans text-text selection:bg-aether selection:text-bg antialiased min-h-screen flex flex-col">
+    
+    <div class="tactical-grid"></div>
+    <div class="noise-bg"></div>
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full top-0 z-50 bg-bg/80 backdrop-blur-lg border-b border-line">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-6">
+                    <a href="index.html" class="flex items-center gap-4 group">
+                        <img src="E5_LOGO.png" alt="CLASH 5" class="h-8 w-auto transition-transform group-hover:scale-105">
+                    </a>
+                    <div class="h-6 w-px bg-line hidden sm:block"></div>
+                    <a href="index.html" class="text-sm font-medium text-muted hover:text-text transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left text-xs"></i> Voltar ao Início
+                    </a>
+                </div>
+                <div>
+                    <span class="font-mono text-xs text-muted tracking-widest uppercase border border-line px-3 py-1 bg-panel">
+                        Central de Suporte
+                    </span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="pt-32 pb-12 px-6">
+        <div class="max-w-5xl mx-auto text-center reveal">
+            <h1 class="font-display text-5xl md:text-6xl text-white mb-4">SUPORTE TÉCNICO</h1>
+            <p class="text-muted text-lg max-w-2xl mx-auto">Encontre respostas rápidas ou abra um ticket. Nossa equipe está pronta para ajudar.</p>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <section class="py-8 px-6 mb-20">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10">
+            
+            <!-- COLUNA ESQUERDA: FORMULÁRIO (Ocupa 7 colunas) -->
+            <div class="lg:col-span-7 reveal">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fa-solid fa-ticket text-aether"></i>
+                    <h2 class="font-display text-3xl text-white">ABRIR UM TICKET</h2>
+                </div>
+
+                <div class="tactical-panel p-6 sm:p-8 rounded-sm relative">
+                    <form id="ticketForm" class="space-y-5">
+                        
+                        <!-- Honeypot -->
+                        <div class="honeypot-field">
+                            <input type="text" id="hp_field" name="hp_field" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <!-- Nome -->
+                            <div>
+                                <label class="block font-mono text-[10px] text-muted mb-1 uppercase tracking-wider">Nickname no Jogo</label>
+                                <input type="text" id="inp_name" required maxlength="50" class="form-input w-full px-4 py-3 rounded-sm text-sm" placeholder="Ex: PlayerC5">
+                            </div>
+                            
+                            <!-- Email -->
+                            <div>
+                                <label class="block font-mono text-[10px] text-muted mb-1 uppercase tracking-wider">E-mail</label>
+                                <input type="email" id="inp_email" required maxlength="100" class="form-input w-full px-4 py-3 rounded-sm text-sm" placeholder="seu@email.com">
+                            </div>
+                        </div>
+
+                        <!-- Categoria -->
+                        <div>
+                            <label class="block font-mono text-[10px] text-muted mb-1 uppercase tracking-wider">Categoria do Problema</label>
+                            <select id="inp_category" class="form-input w-full px-4 py-3 rounded-sm text-sm appearance-none cursor-pointer">
+                                <option value="Suporte Técnico">Problema Técnico (Crash, FPS, Bugs)</option>
+                                <option value="Problema com Conta">Conta / Login / Vínculo</option>
+                                <option value="Report de Jogador">Reportar Jogador (Toxicidade/Cheat)</option>
+                                <option value="Financeiro">Compras / Loja</option>
+                                <option value="Outro">Outro Assunto</option>
+                            </select>
+                        </div>
+
+                        <!-- Descrição -->
+                        <div>
+                            <label class="block font-mono text-[10px] text-muted mb-1 uppercase tracking-wider">Descrição Detalhada</label>
+                            <textarea id="inp_desc" required rows="4" maxlength="1000" class="form-input w-full px-4 py-3 rounded-sm text-sm resize-none" placeholder="Descreva o que aconteceu com o máximo de detalhes. Se for um erro, diga o que você estava fazendo antes."></textarea>
+                            <div class="text-right text-[10px] text-muted mt-1 font-mono"><span id="char_count">0</span>/1000</div>
+                        </div>
+
+                        <!-- Upload de Imagem (NOVO) -->
+                        <div>
+                            <label class="block font-mono text-[10px] text-muted mb-1 uppercase tracking-wider">Anexar Print/Vídeo (Opcional)</label>
+                            <div class="upload-area rounded-sm p-6 text-center" id="drop-zone">
+                                <input type="file" id="file_input" class="hidden" accept="image/*, video/*, .txt, .log">
+                                <div id="upload-placeholder">
+                                    <i class="fa-solid fa-cloud-arrow-up text-2xl text-muted mb-2"></i>
+                                    <p class="text-sm text-text font-medium">Clique aqui ou arraste um arquivo</p>
+                                    <p class="text-xs text-muted mt-1">Imagens, vídeos ou logs (Máx: 5MB)</p>
+                                </div>
+                                <!-- Preview do Arquivo -->
+                                <div id="file-preview" class="hidden flex-col items-center justify-center">
+                                    <img id="preview-img" src="" alt="Preview" class="max-h-32 rounded mb-2 hidden object-contain">
+                                    <div id="preview-file-info" class="hidden text-sm text-aether font-mono flex items-center gap-2">
+                                        <i class="fa-solid fa-file"></i>
+                                        <span id="file-name"></span>
+                                    </div>
+                                    <button type="button" id="remove-file" class="text-xs text-blood mt-2 hover:underline">Remover arquivo</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Verificação Anti-Bot -->
+                        <div class="bg-bg border border-line p-3 rounded-sm flex items-center justify-between">
+                            <div>
+                                <label class="block font-mono text-[10px] text-aether uppercase tracking-wider">Verificação de Segurança</label>
+                                <span class="text-sm text-muted">Prove que você não é um bot.</span>
+                            </div>
+                            <div class="flex items-center gap-3 bg-panel px-3 py-2 border border-line rounded-sm">
+                                <span class="text-sm font-bold text-white">8 + 6 =</span>
+                                <input type="number" id="inp_math" required class="form-input w-16 px-2 py-1 rounded-sm text-sm text-center" placeholder="?">
+                            </div>
+                        </div>
+
+                        <!-- Submit -->
+                        <button type="submit" id="btn_submit" class="btn-primary w-full py-4 rounded-sm text-sm uppercase tracking-wider flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Enviar Ticket
+                        </button>
+                    </form>
+
+                    <!-- Tela de Sucesso -->
+                    <div id="successMessage" class="hidden absolute inset-0 bg-panel flex flex-col items-center justify-center p-6 text-center rounded-sm z-20">
+                        <div class="w-20 h-20 bg-aether/10 rounded-full flex items-center justify-center mb-6 border border-aether/30">
+                            <i class="fa-solid fa-check text-4xl text-aether"></i>
+                        </div>
+                        <h3 class="font-display text-4xl text-white mb-2">TICKET ENVIADO</h3>
+                        <p class="text-sm text-muted mb-8 max-w-sm">Sua mensagem foi recebida pela equipe ASX3. Se você anexou um arquivo, ele também foi transmitido com sucesso.</p>
+                        <div class="bg-bg border border-line p-3 rounded-sm mb-6 font-mono text-xs text-aether">
+                            ID de Rastreio: #C5-<span id="ticket-id">00000</span>
+                        </div>
+                        <button onclick="resetForm()" class="text-sm text-text border border-line px-6 py-2 rounded-sm hover:bg-line transition-colors uppercase font-bold tracking-wider">Voltar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUNA DIREITA: INFORMAÇÕES E FAQ (Ocupa 5 colunas) -->
+            <div class="lg:col-span-5 space-y-8 reveal" style="transition-delay: 100ms;">
+                
+                <!-- Painel de Status -->
+                <div class="tactical-panel p-6 rounded-sm border-t-2 border-t-discord">
+                    <h3 class="font-display text-2xl text-white mb-4">PRECISA DE AJUDA RÁPIDA?</h3>
+                    <p class="text-sm text-muted mb-6">Nossa equipe de moderação no Discord está online 24/7 para resolver problemas de conta e reports de jogadores.</p>
+                    <a href="https://discord.gg/RfFgpaTk9E" target="_blank" class="w-full bg-discord hover:bg-[#4752C4] text-white font-bold py-3 rounded-sm flex items-center justify-center gap-3 transition-colors">
+                        <i class="fa-brands fa-discord text-xl"></i> Entrar no Discord
+                    </a>
+                </div>
+
+                <!-- FAQ Rápido -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-circle-question text-aether"></i>
+                        <h3 class="font-display text-2xl text-white">DÚVIDAS FREQUENTES</h3>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <div class="faq-item tactical-panel rounded-sm">
+                            <button class="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none">
+                                <span class="font-semibold text-sm text-text">O jogo já tem data de lançamento?</span>
+                                <i class="fa-solid fa-chevron-down faq-icon text-muted text-xs"></i>
+                            </button>
+                            <div class="faq-content px-4 pb-4">
+                                <p class="text-xs text-muted leading-relaxed">O CLASH 5 está em Alpha Fechado. O lançamento oficial está previsto para o próximo semestre. Participe do Discord para oportunidades de teste.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item tactical-panel rounded-sm">
+                            <button class="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none">
+                                <span class="font-semibold text-sm text-text">O jogo é Pay-to-Win?</span>
+                                <i class="fa-solid fa-chevron-down faq-icon text-muted text-xs"></i>
+                            </button>
+                            <div class="faq-content px-4 pb-4">
+                                <p class="text-xs text-muted leading-relaxed">Não. A monetização é 100% cosmética (Skins, emotes e Passe de Batalha). Nenhum jogador pode comprar vantagem de dano ou vida.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item tactical-panel rounded-sm">
+                            <button class="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none">
+                                <span class="font-semibold text-sm text-text">Quais são os requisitos de celular?</span>
+                                <i class="fa-solid fa-chevron-down faq-icon text-muted text-xs"></i>
+                            </button>
+                            <div class="faq-content px-4 pb-4">
+                                <p class="text-xs text-muted leading-relaxed">Recomendamos Android 10+ com 4GB de RAM e processador Snapdragon 720G ou superior. Para iOS, iPhone X ou superior (iOS 14+).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto border-t border-line py-8 relative">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-xs font-mono text-muted">
+            <div class="flex items-center gap-4 mb-4 md:mb-0">
+                <img src="E5_LOGO.png" alt="CLASH 5" class="h-6 w-auto grayscale opacity-50">
+                <span>© 2024 ASX3 STUDIOS. CLOSED SOURCE.</span>
+            </div>
+            <div class="flex gap-6">
+                <a href="index.html" class="hover:text-text transition-colors">INÍCIO</a>
+                <a href="https://github.com/AAD-Systems" target="_blank" class="hover:text-text transition-colors">GITHUB</a>
+                <a href="#" class="hover:text-text transition-colors">TERMOS</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // 1. Lógica do FAQ
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const button = item.querySelector('button');
+            button.addEventListener('click', () => {
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) otherItem.classList.remove('active');
+                });
+                item.classList.toggle('active');
+            });
+        });
+
+        // 2. Contador de Caracteres
+        const descInput = document.getElementById('inp_desc');
+        const charCount = document.getElementById('char_count');
+        descInput.addEventListener('input', () => {
+            charCount.textContent = descInput.value.length;
+        });
+
+        // 3. Lógica de Upload de Arquivo
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file_input');
+        const uploadPlaceholder = document.getElementById('upload-placeholder');
+        const filePreview = document.getElementById('file-preview');
+        const previewImg = document.getElementById('preview-img');
+        const previewFileInfo = document.getElementById('preview-file-info');
+        const fileNameDisplay = document.getElementById('file-name');
+        const removeFileBtn = document.getElementById('remove-file');
+        
+        let selectedFile = null;
+
+        // Clique na área
+        dropZone.addEventListener('click', (e) => {
+            if(e.target !== removeFileBtn) fileInput.click();
+        });
+
+        // Drag & Drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            // Limite de 5MB
+            if (file.size > 5 * 1024 * 1024) {
+                alert("O arquivo é muito grande. O limite é 5MB.");
+                return;
+            }
+            
+            selectedFile = file;
+            uploadPlaceholder.classList.add('hidden');
+            filePreview.classList.remove('hidden');
+            
+            // Se for imagem, mostra preview
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImg.src = e.target.result;
+                    previewImg.classList.remove('hidden');
+                    previewFileInfo.classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // Se for outro arquivo (log, txt), mostra só o nome
+                previewImg.classList.add('hidden');
+                previewFileInfo.classList.remove('hidden');
+                fileNameDisplay.textContent = file.name;
+            }
+        }
+
+        removeFileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectedFile = null;
+            fileInput.value = "";
+            previewImg.src = "";
+            uploadPlaceholder.classList.remove('hidden');
+            filePreview.classList.add('hidden');
+        });
+
+        // 4. Lógica do Formulário e Webhook
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1563229699533176852/ap68j0AISHX1cPRqCTVXRJLv0y5o2StiSome_IvP81wbnJ0bo0DBK2JhSfh1ZCVwlWOK';
+        const COOLDOWN_TIME = 5 * 60 * 1000; // 5 minutos
+
+        const form = document.getElementById('ticketForm');
+        const successMessage = document.getElementById('successMessage');
+        const submitBtn = document.getElementById('btn_submit');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // --- ANTI-SPAM ---
+            const hpField = document.getElementById('hp_field').value;
+            if (hpField !== "") return; // Honeypot
+
+            const mathResult = parseInt(document.getElementById('inp_math').value);
+            if (mathResult !== 14) { // 8 + 6 = 14
+                alert("Verificação de segurança incorreta. Tente novamente.");
+                return;
+            }
+
+            const lastSubmit = localStorage.getItem('c5_last_ticket');
+            if (lastSubmit) {
+                const timePassed = Date.now() - parseInt(lastSubmit);
+                if (timePassed < COOLDOWN_TIME) {
+                    const minutesLeft = Math.ceil((COOLDOWN_TIME - timePassed) / 60000);
+                    alert(`Sistema Anti-Spam: Aguarde ${minutesLeft} minuto(s) para enviar outro ticket.`);
+                    return;
+                }
+            }
+
+            // --- DADOS ---
+            const name = document.getElementById('inp_name').value;
+            const email = document.getElementById('inp_email').value;
+            const category = document.getElementById('inp_category').value;
+            const description = document.getElementById('inp_desc').value;
+
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Transmitindo...';
+            submitBtn.disabled = true;
+
+            // --- CONSTRUÇÃO DO PAYLOAD PARA O WEBHOOK (COM ARQUIVO) ---
+            const embed = {
+                title: "🎫 Novo Ticket de Suporte",
+                color: 3002543, // Ciano (#2DD4BF)
+                fields: [
+                    { name: "👤 Jogador", value: name, inline: true },
+                    { name: "📧 E-mail", value: email, inline: true },
+                    { name: "📁 Categoria", value: category, inline: false },
+                    { name: "📝 Descrição", value: description }
+                ],
+                footer: { text: "C5 Official Support System" },
+                timestamp: new Date().toISOString()
+            };
+
+            // Se tiver imagem, adiciona no embed
+            if (selectedFile && selectedFile.type.startsWith('image/')) {
+                embed.image = { url: `attachment://${selectedFile.name}` };
+            }
+
+            const payload = {
+                username: "C5 Support Terminal",
+                avatar_url: "https://github.com/AAD-Systems.png",
+                embeds: [embed]
+            };
+
+            // Preparando o FormData (para enviar o arquivo e o texto juntos)
+            const formData = new FormData();
+            formData.append('payload_json', JSON.stringify(payload));
+            
+            if (selectedFile) {
+                formData.append(`files[0]`, selectedFile, selectedFile.name);
+            }
+
+            // --- ENVIO ---
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    body: formData // Usa FormData em vez de JSON
+                });
+
+                if (response.ok) {
+                    localStorage.setItem('c5_last_ticket', Date.now().toString());
+                    
+                    // Gera ID aleatório para simular sistema
+                    document.getElementById('ticket-id').textContent = Math.floor(10000 + Math.random() * 90000);
+                    
+                    form.classList.add('hidden');
+                    successMessage.classList.remove('hidden');
+                } else {
+                    throw new Error('Falha na resposta do servidor');
+                }
+            } catch (error) {
+                console.error("Erro ao enviar:", error);
+                alert("Ocorreu um erro de rede ao enviar o ticket. Verifique sua conexão ou tente novamente mais tarde.");
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar Ticket';
+                submitBtn.disabled = false;
+            }
+        });
+
+        // 5. Reset
+        function resetForm() {
+            form.reset();
+            charCount.textContent = "0";
+            removeFileBtn.click(); // Limpa o arquivo
+            form.classList.remove('hidden');
+            successMessage.classList.add('hidden');
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar Ticket';
+            submitBtn.disabled = false;
+        }
+
+        // 6. Reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>
