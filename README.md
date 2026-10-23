@@ -6,7 +6,7 @@
   
   [![ASX3 Studios](https://img.shields.io/badge/Studio-ASX3-red?style=for-the-badge)](#)
   [![Platform](https://img.shields.io/badge/Platform-Android_%7C_iOS-green?style=for-the-badge)](#)
-  [![Discord](https://img.shields.io/badge/Discord-Entrar_na_Arena-5865F2?style=for-the-badge&logo=discord)](#)
+  [![Discord](https://img.shields.io/badge/Discord-Entrar_na_Arena-5865F2?style=for-the-badge&logo=discord)](https://discord.gg/RfFgpaTk9E)
 </div>
 
 ## 🎮 Sobre o Jogo
