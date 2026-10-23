@@ -25,7 +25,8 @@
                         gold: '#fbbf24',
                         cyan: '#00f0ff',
                         crimson: '#ff003c',
-                        discord: '#5865F2'
+                        discord: '#5865F2',
+                        purple: '#8b5cf6'
                     },
                     fontFamily: {
                         title: ['Cinzel', 'serif'],
@@ -62,7 +63,7 @@
             -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
         }
 
-        /* Glassmorphism Refinado */
+        /* Glassmorphism */
         .glass-panel {
             background: linear-gradient(145deg, rgba(20, 25, 35, 0.7), rgba(10, 12, 18, 0.9));
             backdrop-filter: blur(16px);
@@ -84,6 +85,7 @@
         /* Gradientes de Texto */
         .text-gradient-cyan { background: linear-gradient(to right, #00f0ff, #a6ffcb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .text-gradient-gold { background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-purple { background: linear-gradient(to right, #8b5cf6, #d8b4fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         /* Glitch Effect */
         .glitch { position: relative; display: inline-block; }
@@ -96,6 +98,11 @@
         /* Scroll Reveal */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Ranked Effects */
+        .rank-bronze { box-shadow: inset 0 0 20px rgba(205, 127, 50, 0.1); }
+        .rank-diamond { box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.2); }
+        .rank-predator { box-shadow: inset 0 0 30px rgba(255, 0, 60, 0.3), 0 0 20px rgba(255, 0, 60, 0.1); border-color: rgba(255, 0, 60, 0.5); }
     </style>
 </head>
 <body class="antialiased selection:bg-cyan selection:text-obsidian">
@@ -110,17 +117,18 @@
                     <img src="E5_LOGO.png" alt="CLASH 5 Logo" class="h-10 md:h-12 w-auto drop-shadow-[0_0_15px_rgba(0,240,255,0.4)] transition-transform hover:scale-105">
                 </a>
                 
-                <div class="hidden md:flex space-x-10">
-                    <a href="#mechanic" class="text-gray-400 hover:text-white font-semibold transition-colors text-sm uppercase tracking-wider">O Preço</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#modes" class="text-gray-400 hover:text-white font-semibold transition-colors text-sm uppercase tracking-wider">Modos</a>
                     <a href="#operators" class="text-gray-400 hover:text-white font-semibold transition-colors text-sm uppercase tracking-wider">Operadores</a>
-                    <a href="#specs" class="text-gray-400 hover:text-white font-semibold transition-colors text-sm uppercase tracking-wider">Requisitos</a>
+                    <a href="#ranked" class="text-gray-400 hover:text-white font-semibold transition-colors text-sm uppercase tracking-wider">Ranked</a>
                     <a href="#community" class="text-cyan hover:text-white font-semibold transition-colors text-sm uppercase tracking-wider">Discord</a>
                 </div>
                 
                 <div>
-                    <a href="#download" class="bg-white text-obsidian font-black px-6 py-2.5 rounded-sm hover:bg-cyan transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)] text-sm uppercase tracking-wider">
-                        Jogar Grátis
-                    </a>
+                    <!-- Botão desativado -->
+                    <button disabled class="bg-gray-800 text-gray-500 font-black px-6 py-2.5 rounded-sm cursor-not-allowed text-sm uppercase tracking-wider border border-gray-700 flex items-center gap-2">
+                        <i class="fa-solid fa-lock text-xs"></i> Em Breve
+                    </button>
                 </div>
             </div>
         </div>
@@ -134,7 +142,7 @@
             <div class="z-10 reveal text-center lg:text-left">
                 <div class="inline-flex items-center gap-2 bg-crimson/10 border border-crimson/30 px-4 py-1.5 rounded-full mb-6">
                     <span class="w-2 h-2 rounded-full bg-crimson animate-pulse"></span>
-                    <span class="font-mono text-crimson text-xs font-bold tracking-widest">ALPHA FECHADO DISPONÍVEL</span>
+                    <span class="font-mono text-crimson text-xs font-bold tracking-widest">DESENVOLVIMENTO ATIVO - ALPHA FECHADO</span>
                 </div>
                 
                 <div class="glitch-wrapper mb-4">
@@ -148,12 +156,12 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4" id="download">
-                    <a href="#" class="flex items-center justify-center gap-3 bg-white text-obsidian px-6 py-3.5 rounded-md hover:bg-gray-200 transition-colors shadow-lg font-bold">
-                        <i class="fa-brands fa-google-play text-xl"></i> Google Play
-                    </a>
-                    <a href="#" class="flex items-center justify-center gap-3 bg-surface border border-gray-700 hover:border-cyan text-white px-6 py-3.5 rounded-md transition-colors font-bold">
-                        <i class="fa-brands fa-apple text-xl"></i> App Store
-                    </a>
+                    <button disabled class="flex items-center justify-center gap-3 bg-gray-900 border border-gray-700 text-gray-500 px-6 py-3.5 rounded-md cursor-not-allowed font-bold">
+                        <i class="fa-brands fa-google-play text-xl"></i> Google Play (Em Breve)
+                    </button>
+                    <button disabled class="flex items-center justify-center gap-3 bg-gray-900 border border-gray-700 text-gray-500 px-6 py-3.5 rounded-md cursor-not-allowed font-bold">
+                        <i class="fa-brands fa-apple text-xl"></i> App Store (Em Breve)
+                    </button>
                 </div>
             </div>
 
@@ -162,50 +170,62 @@
                 <div class="glass-panel p-4 rounded-2xl rotate-3 relative group">
                     <div class="absolute inset-0 bg-gradient-to-tr from-cyan/20 to-crimson/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
                     <div class="bg-obsidian rounded-xl overflow-hidden border border-white/10 aspect-video flex items-center justify-center relative">
-                         <!-- Placeholder para o vídeo/gif de gameplay -->
                          <i class="fa-solid fa-gamepad text-6xl text-gray-800"></i>
-                         <div class="absolute bottom-4 left-4 font-mono text-xs text-cyan">C5_GAMEPLAY.MP4</div>
+                         <div class="absolute bottom-4 left-4 font-mono text-xs text-cyan">C5_GAMEPLAY_ALPHA.MP4</div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- SEÇÃO MECÂNICA -->
-    <section id="mechanic" class="py-24 bg-surface/30 border-y border-white/5 relative z-10">
+    <!-- SEÇÃO DE MODOS DE JOGO -->
+    <section id="modes" class="py-24 bg-surface/30 border-y border-white/5 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16 reveal">
-                <h2 class="font-title text-3xl md:text-5xl font-bold text-white mb-4">O <span class="text-gradient-gold">PREÇO DO PODER</span></h2>
-                <div class="h-1 w-24 bg-gold mx-auto mb-6"></div>
-                <p class="text-gray-400 max-w-2xl mx-auto">Não existem heróis invencíveis no CLASH 5. Cada Ultimate devastadora exige um sacrifício tático. Use no momento certo ou perca a partida.</p>
+                <h2 class="font-title text-3xl md:text-5xl font-bold text-white mb-4">MODOS DE <span class="text-gradient-cyan">JOGO</span></h2>
+                <div class="h-1 w-24 bg-cyan mx-auto mb-6"></div>
+                <p class="text-gray-400 max-w-2xl mx-auto">Do combate rápido à estratégia em equipe. Encontre o seu estilo.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center reveal">
-                <!-- Card de Habilidade -->
-                <div class="glass-panel p-8 rounded-xl border-l-4 border-l-crimson">
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <h3 class="font-title text-2xl text-white">Domo de Silêncio</h3>
-                            <span class="text-xs font-mono text-cyan border border-cyan/30 px-2 py-0.5 rounded">ULTIMATE</span>
-                        </div>
-                        <i class="fa-solid fa-ghost text-3xl text-cyan"></i>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Modo 1 -->
+                <div class="glass-panel p-6 rounded-xl card-hover border-l-4 border-l-crimson">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-title text-2xl text-white">Caçada (5v5)</h3>
+                        <i class="fa-solid fa-crosshairs text-crimson text-2xl"></i>
                     </div>
-                    <p class="text-gray-300 mb-6 text-sm">Cria uma zona de 5 metros onde todas as armas de fogo e habilidades inimigas são desativadas por 4 segundos.</p>
-                    <div class="bg-crimson/10 border border-crimson/30 p-4 rounded">
-                        <span class="text-xs font-bold text-crimson uppercase tracking-widest block mb-1"><i class="fa-solid fa-triangle-exclamation"></i> O Preço</span>
-                        <p class="text-gray-300 text-sm">O Espectro perde completamente a mira assistida (Auto-Aim) por 6 segundos após o uso.</p>
-                    </div>
+                    <p class="text-gray-400 text-sm mb-4">O clássico Team Deathmatch. A equipe que alcançar 20 abates primeiro vence. Ideal para aquecer e testar mecânicas.</p>
+                    <span class="bg-crimson/10 text-crimson text-xs font-bold px-2 py-1 rounded border border-crimson/20">AÇÃO RÁPIDA</span>
                 </div>
 
-                <!-- Texto Explicativo -->
-                <div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Estratégia Acima de Tudo</h3>
-                    <p class="text-gray-400 mb-4">Partidas de 5v5 exigem comunicação e timing. Um Domo de Silêncio mal colocado pode custar o jogo inteiro.</p>
-                    <ul class="space-y-3 font-mono text-sm text-gray-300">
-                        <li><i class="fa-solid fa-check text-cyan mr-2"></i> Combates Táticos Rápidos</li>
-                        <li><i class="fa-solid fa-check text-cyan mr-2"></i> Mapas Simétricos</li>
-                        <li><i class="fa-solid fa-check text-cyan mr-2"></i> Cross-play Android e iOS</li>
-                    </ul>
+                <!-- Modo 2 -->
+                <div class="glass-panel p-6 rounded-xl card-hover border-l-4 border-l-cyan">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-title text-2xl text-white">Carga de Aether</h3>
+                        <i class="fa-solid fa-box-open text-cyan text-2xl"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Modo Payload. Escolte a Carroça de Cristal até a base inimiga enquanto eles tentam impedir. O time precisa se dividir entre atacar e defender.</p>
+                    <span class="bg-cyan/10 text-cyan text-xs font-bold px-2 py-1 rounded border border-cyan/20">OBJETIVO</span>
+                </div>
+
+                <!-- Modo 3 -->
+                <div class="glass-panel p-6 rounded-xl card-hover border-l-4 border-l-gold">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-title text-2xl text-white">Ascensão de Clãs</h3>
+                        <i class="fa-solid fa-flag text-gold text-2xl"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Leve seu clube ao topo. Enfrente outras guildas em guerras semanais. Vença campeonatos e avance nas competições oficiais do servidor.</p>
+                    <span class="bg-gold/10 text-gold text-xs font-bold px-2 py-1 rounded border border-gold/20">CLÃS</span>
+                </div>
+
+                <!-- Modo 4 -->
+                <div class="glass-panel p-6 rounded-xl card-hover border-l-4 border-l-purple">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-title text-2xl text-white">Circuito C5 (Pro)</h3>
+                        <i class="fa-solid fa-trophy text-purple text-2xl"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">O ápice do competitivo. Torneios oficiais e finais de temporada (Estilo FNCS). Apenas os melhores jogadores do servidor se classificam.</p>
+                    <span class="bg-purple/10 text-purple text-xs font-bold px-2 py-1 rounded border border-purple/20">E-SPORTS</span>
                 </div>
             </div>
         </div>
@@ -226,12 +246,10 @@
                         <h3 class="font-title text-2xl text-white">Vanguarda</h3>
                         <span class="text-xs font-bold text-gold bg-gold/10 border border-gold/30 px-2 py-1 rounded">TANQUE</span>
                     </div>
-                    <!-- Imagem Vanguarda -->
                     <div class="h-56 bg-black/50 rounded-lg mb-4 relative overflow-hidden border border-white/5 group">
                         <img src="Vanguarda.png" alt="Vanguarda" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-90"></div>
                     </div>
-                    <!-- Atributos -->
                     <div class="space-y-2 mb-6 mt-auto relative z-10">
                         <div class="flex justify-between text-xs text-gray-400 font-mono"><span>Vida</span><span>100%</span></div>
                         <div class="h-1.5 w-full bg-gray-800 rounded-full"><div class="h-1.5 bg-gold rounded-full" style="width: 100%"></div></div>
@@ -247,7 +265,6 @@
                         <h3 class="font-title text-2xl text-white">Aberração</h3>
                         <span class="text-xs font-bold text-crimson bg-crimson/10 border border-crimson/30 px-2 py-1 rounded">DPS</span>
                     </div>
-                    <!-- Imagem Aberração -->
                     <div class="h-56 bg-black/50 rounded-lg mb-4 relative overflow-hidden border border-white/5 group">
                         <img src="Aberração.png" alt="Aberração" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-90"></div>
@@ -267,7 +284,6 @@
                         <h3 class="font-title text-2xl text-white">Espectro</h3>
                         <span class="text-xs font-bold text-cyan bg-cyan/10 border border-cyan/30 px-2 py-1 rounded">MAGO</span>
                     </div>
-                    <!-- Imagem Espectro -->
                     <div class="h-56 bg-black/50 rounded-lg mb-4 relative overflow-hidden border border-white/5 group">
                         <img src="Espectro.png" alt="Espectro" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-90"></div>
@@ -284,8 +300,98 @@
         </div>
     </section>
 
+    <!-- SEÇÃO RANKED E PASSE -->
+    <section id="ranked" class="py-24 bg-surface/50 border-y border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-title text-3xl md:text-5xl font-bold text-white mb-4">PROGRESSÃO <span class="text-gradient-purple">COMPETITIVA</span></h2>
+                <div class="h-1 w-24 bg-purple mx-auto mb-6"></div>
+                <p class="text-gray-400 max-w-2xl mx-auto">Suba de elo, desbloqueie recompensas épicas no Passe de Batalha e torne-se um C5 Predator.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Ranks -->
+                <div class="reveal">
+                    <h3 class="font-title text-2xl text-white mb-6">SISTEMA DE <span class="text-gradient-cyan">ELOS</span></h3>
+                    <div class="space-y-3">
+                        <div class="glass-panel p-4 rounded-lg flex items-center justify-between rank-bronze">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-[#cd7f32] flex items-center justify-center"><i class="fa-solid fa-shield text-white"></i></div>
+                                <span class="font-bold text-[#cd7f32]">Bronze</span>
+                            </div>
+                            <span class="text-xs text-gray-500 font-mono">0 - 999 PTS</span>
+                        </div>
+                        <div class="glass-panel p-4 rounded-lg flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center"><i class="fa-solid fa-shield-halved text-white"></i></div>
+                                <span class="font-bold text-gray-300">Prata</span>
+                            </div>
+                            <span class="text-xs text-gray-500 font-mono">1000 - 1999 PTS</span>
+                        </div>
+                        <div class="glass-panel p-4 rounded-lg flex items-center justify-between border-gold/30">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-gold flex items-center justify-center"><i class="fa-solid fa-crown text-obsidian"></i></div>
+                                <span class="font-bold text-gold">Ouro</span>
+                            </div>
+                            <span class="text-xs text-gray-500 font-mono">2000 - 2999 PTS</span>
+                        </div>
+                        <div class="glass-panel p-4 rounded-lg flex items-center justify-between rank-diamond border-cyan/30">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-cyan flex items-center justify-center"><i class="fa-solid fa-gem text-obsidian"></i></div>
+                                <span class="font-bold text-cyan">Diamante</span>
+                            </div>
+                            <span class="text-xs text-gray-500 font-mono">3000 - 3999 PTS</span>
+                        </div>
+                        <div class="glass-panel p-4 rounded-lg flex items-center justify-between rank-predator border-crimson/50">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-crimson flex items-center justify-center shadow-[0_0_15px_rgba(255,0,60,0.5)]"><i class="fa-solid fa-skull text-white"></i></div>
+                                <span class="font-bold text-crimson">C5 Predator</span>
+                            </div>
+                            <span class="text-xs text-crimson font-mono font-bold">TOP 500 GLOBAL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passe de Batalha -->
+                <div class="reveal" style="transition-delay: 200ms;">
+                    <h3 class="font-title text-2xl text-white mb-6">PASSE DE <span class="text-gradient-gold">BATALHA</span></h3>
+                    <div class="glass-panel p-6 rounded-xl border border-gold/20 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gold/10 blur-3xl"></div>
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <span class="text-xs font-mono text-gold tracking-widest uppercase">Temporada 1</span>
+                                <h4 class="font-bold text-white text-xl">O Despertar do Aether</h4>
+                            </div>
+                            <i class="fa-solid fa-scroll text-3xl text-gold"></i>
+                        </div>
+                        
+                        <p class="text-sm text-gray-400 mb-6">Progrida jogando partidas, complete missões diárias e semanais. Desbloqueie skins exclusivas, emotes, molduras de perfil e moedas premium.</p>
+                        
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded bg-cyan/20 flex items-center justify-center text-cyan font-bold text-xs border border-cyan/30">01</div>
+                                <div class="flex-1 h-2 bg-gray-800 rounded-full"><div class="h-2 bg-cyan rounded-full w-1/3"></div></div>
+                                <i class="fa-solid fa-gift text-gray-500"></i>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded bg-gold/20 flex items-center justify-center text-gold font-bold text-xs border border-gold/30">50</div>
+                                <div class="flex-1 h-2 bg-gray-800 rounded-full"><div class="h-2 bg-gold rounded-full w-2/3"></div></div>
+                                <i class="fa-solid fa-box-open text-gold drop-shadow-[0_0_5px_rgba(251,191,36,0.5)]"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-obsidian/50 p-3 rounded border border-white/5 flex items-center justify-between">
+                            <span class="text-xs text-gray-400">Recompensa Máxima:</span>
+                            <span class="text-xs font-bold text-gold uppercase"><i class="fa-solid fa-star mr-1"></i> Skin Lendária</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- SEÇÃO DE SPECS (REQUISITOS) -->
-    <section id="specs" class="py-20 bg-surface/50 border-y border-white/5 relative z-10">
+    <section id="specs" class="py-20 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-12 reveal">
                 <h2 class="font-title text-3xl text-white mb-2">FICHA TÉCNICA</h2>
@@ -318,7 +424,7 @@
     </section>
 
     <!-- SEÇÃO DO BOT (COMUNIDADE) -->
-    <section id="community" class="py-24 relative z-10">
+    <section id="community" class="py-24 bg-surface/30 border-t border-white/5 relative z-10">
         <div class="max-w-5xl mx-auto px-6">
             <div class="glass-panel p-10 rounded-2xl flex flex-col md:flex-row items-center justify-between reveal border-discord/30 bg-discord/5">
                 <div class="mb-8 md:mb-0 md:pr-10">
